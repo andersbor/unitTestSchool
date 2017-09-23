@@ -2,13 +2,6 @@
 
 namespace School
 {
-    public enum Gender
-    {
-        Male, Female
-    }
-
-   
-
     /// <summary>
     ///     Class invariant: name !=null and name != ""
     /// </summary>
@@ -17,7 +10,7 @@ namespace School
         private int _semester;
 
         public Student(String name, string address, int semester, Gender gender)
-        {          
+        {
             Name = name;
             Address = address;
             Semester = semester;
@@ -71,7 +64,7 @@ namespace School
 
         public override string ToString()
         {
-            return string.Format("Student: {0}, {1}, {2}, {3}", Name, Address, Semester, Gender);
+            return base.ToString() + ", " + Semester;
         }
     }
 }

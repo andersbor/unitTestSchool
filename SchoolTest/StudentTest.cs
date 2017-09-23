@@ -94,7 +94,7 @@ namespace SchoolTest
         [TestMethod]
         public void TestToString()
         {
-            Assert.AreEqual("Student: Anders, Roskilde, 1, Male", _student.ToString());
+            Assert.AreEqual("Student: Anders, Roskilde, Male, 1", _student.ToString());
         }
 
         [TestMethod]

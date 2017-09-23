@@ -1,12 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace School
 {
-    public abstract class Person 
+    public enum Gender
+    {
+        Male, Female
+    }
+
+    public class Person
     {
         protected string _name;
         private string _address;
@@ -39,6 +40,11 @@ namespace School
             {
                 throw new ArgumentException("name is null or empty");
             }
+        }
+
+        public override string ToString()
+        {
+            return string.Format("Student: {0}, {1}, {2}", Name, Address, Gender);
         }
     }
 }
