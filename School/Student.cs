@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Xml.Schema;
 
 namespace School
 {
@@ -17,11 +16,12 @@ namespace School
         private int _semester;
         private string _address;
 
-        public Student(String name, int semester)
-        {
-            CheckName(name);
-            _name = name;
-            _semester = semester;
+        public Student(String name, string address, int semester, Gender gender)
+        {          
+            Name = name;
+            Address = address;
+            Semester = semester;
+            Gender = gender;
         }
 
         public String Name
@@ -68,7 +68,7 @@ namespace School
         {
             if (1 <= semester && semester <= 8)
                 return;
-            throw new ArgumentException("semester is less than zero");
+            throw new ArgumentOutOfRangeException(nameof(semester), semester, "Illegal semester");
         }
 
         public bool Equals(Student other)
@@ -101,7 +101,7 @@ namespace School
 
         public override string ToString()
         {
-            return string.Format("Student: {0}, {1}", _name, _semester);
+            return string.Format("Student: {0}, {1}, {2}, {3}", Name, Address, Semester, Gender);
         }
     }
 }

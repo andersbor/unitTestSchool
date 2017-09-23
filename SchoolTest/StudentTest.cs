@@ -7,13 +7,14 @@ namespace SchoolTest
     [TestClass]
     public class StudentTest
     {
+        private Student _student = new Student("Anders", "Roskilde", 1, Gender.Male);
+
         [TestMethod]
         public void TestConstructor()
         {
-            Student student = new Student("Anders", 40);
             try
             {
-                new Student(null, 1);
+                new Student(null, "Roskilde", 1, Gender.Male);
                 Assert.Fail();
             }
             catch (ArgumentException ex)
@@ -22,7 +23,7 @@ namespace SchoolTest
             }
             try
             {
-                new Student("", 1);
+                new Student("", "Roskilde", 1, Gender.Male);
                 Assert.Fail();
             }
             catch (ArgumentException ex)
@@ -35,19 +36,18 @@ namespace SchoolTest
         [ExpectedException(typeof(ArgumentException))]
         public void TestConstructorException()
         {
-            new Student(null, 1);
+            new Student(null, "Roskilde", 1, Gender.Male);
         }
 
         [TestMethod]
         public void TestName()
         {
-            Student student = new Student("Anders", 40);
-            Assert.AreEqual("Anders", student.Name);
-            student.Name = "John";
-            Assert.AreEqual("John", student.Name);
+            Assert.AreEqual("Anders", _student.Name);
+            _student.Name = "John";
+            Assert.AreEqual("John", _student.Name);
             try
             {
-                student.Name = null;
+                _student.Name = null;
                 Assert.Fail();
             }
             catch (ArgumentException ex)
@@ -57,61 +57,73 @@ namespace SchoolTest
         }
 
         [TestMethod]
-        public void TestAge()
+        public void TestAddress()
         {
-            Student student = new Student("Anders", 40);
-            Assert.AreEqual(40, student.Semester);
-            student.Semester = 0;
-            Assert.AreEqual(0, student.Semester);
+            Assert.AreEqual("Roskilde", _student.Address);
             try
             {
-                student.Semester = -1;
+                _student.Address = null;
+                Assert.Fail();
+            } catch (ArgumentNullException) { }
+        }
+
+        [TestMethod]
+        public void TestSemester()
+        {
+            Assert.AreEqual(1, _student.Semester);
+            _student.Semester = 2;
+            Assert.AreEqual(2, _student.Semester);
+            try
+            {
+                _student.Semester = 0;
                 Assert.Fail();
             }
-            catch (ArgumentException ex)
+            catch (ArgumentOutOfRangeException) { }
+            _student.Semester = 7;
+            Assert.AreEqual(7, _student.Semester);
+            _student.Semester = 8;
+            Assert.AreEqual(8, _student.Semester);
+            try
             {
-                Assert.AreEqual("age is less than zero", ex.Message);
+                _student.Semester = 9;
+                Assert.Fail();
             }
+            catch (ArgumentOutOfRangeException) { }
         }
 
         [TestMethod]
         public void TestToString()
         {
-            Student student = new Student("Anders", 40);
-            Assert.AreEqual("Student: Anders, 40", student.ToString());
+            Assert.AreEqual("Student: Anders, Roskilde, 1, Male", _student.ToString());
         }
 
         [TestMethod]
         public void TestEquals()
         {
-            Student student = new Student("Anders", 40);
-            Assert.AreEqual(student, student);
-            Student similarStudent = new Student("Anders", 40);
-            Assert.AreEqual(student, similarStudent);
+            Assert.AreEqual(_student, _student);
+            Student similarStudent = new Student("Anders", "Roskilde", 1, Gender.Male);
+            Assert.AreEqual(_student, similarStudent);
 
-            Student studentDifferentName = new Student("John", 40);
-            Assert.AreNotEqual(student, studentDifferentName);
+            Student studentDifferentName = new Student("John", "Roskilde", 1, Gender.Male);
+            Assert.AreNotEqual(_student, studentDifferentName);
 
-            Student studentDifferentAge = new Student("Anders", 30);
-            Assert.AreNotEqual(student, studentDifferentAge);
+            Student studentDifferentSemester = new Student("Anders", "Roskilde", 3, Gender.Male);
+            Assert.AreNotEqual(_student, studentDifferentSemester);
 
-            Assert.AreNotEqual(student, "Anders");
+            Assert.AreNotEqual(_student, "Anders");
             Student other = null;
-            Assert.IsFalse(student.Equals(other));
+            Assert.IsFalse(_student.Equals(other));
 
             String str = null;
-            Assert.IsFalse(student.Equals(str));        
+            Assert.IsFalse(_student.Equals(str));
         }
 
         [TestMethod]
         public void TestHashCode()
         {
-            Student student = new Student("Anders", 40);
-            Student similarStudent = new Student("Anders", 40);
+            Student similarStudent = new Student("Anders", "Roskilde", 1, Gender.Male);
 
-            Assert.AreEqual(student.GetHashCode(), similarStudent.GetHashCode());
+            Assert.AreEqual(_student.GetHashCode(), similarStudent.GetHashCode());
         }
-
-
     }
 }
