@@ -10,11 +10,9 @@ namespace School
         private int _semester;
 
         public Student(String name, string address, int semester, Gender gender)
+            : base(name, address, Gender.Male)
         {
-            Name = name;
-            Address = address;
             Semester = semester;
-            Gender = gender;
         }
 
         public int Semester
@@ -37,7 +35,7 @@ namespace School
         public bool Equals(Student other)
         {
             if (other == null) return false;
-            return this._name.Equals(other._name) && this._semester == other._semester;
+            return this.Name.Equals(other.Name) && this._semester == other._semester;
         }
 
         public override bool Equals(Object obj)
@@ -58,7 +56,7 @@ namespace School
         {
             unchecked
             {
-                return ((_name != null ? _name.GetHashCode() : 0) * 397) ^ _semester;
+                return ((Name != null ? Name.GetHashCode() : 0) * 397) ^ _semester;
             }
         }
 

@@ -9,8 +9,15 @@ namespace School
 
     public class Person
     {
-        protected string _name;
+        private string _name;
         private string _address;
+
+        public Person(string name, string address, Gender gender)
+        {
+            Name = name;
+            Address = address;
+            Gender = gender;
+        }
 
         public String Name
         {
@@ -44,7 +51,7 @@ namespace School
 
         public override string ToString()
         {
-            return string.Format("Student: {0}, {1}, {2}", Name, Address, Gender);
+            return string.Format("{0}, {1}, {2}", Name, Address, Gender);
         }
     }
 }
