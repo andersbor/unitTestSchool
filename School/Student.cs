@@ -7,14 +7,14 @@ namespace School
         Male, Female
     }
 
+   
+
     /// <summary>
     ///     Class invariant: name !=null and name != ""
     /// </summary>
-    public class Student : IEquatable<Student>
+    public class Student : Person, IEquatable<Student>
     {
-        private string _name;
         private int _semester;
-        private string _address;
 
         public Student(String name, string address, int semester, Gender gender)
         {          
@@ -24,26 +24,6 @@ namespace School
             Gender = gender;
         }
 
-        public String Name
-        {
-            get { return _name; }
-            set
-            {
-                CheckName(value);
-                _name = value;
-            }
-        }
-
-        public string Address
-        {
-            get { return _address; }
-            set
-            {
-                if (value == null) throw new ArgumentNullException(nameof(value), "name is null");
-                _address = value;
-            }
-        }
-
         public int Semester
         {
             get { return _semester; }
@@ -51,16 +31,6 @@ namespace School
             {
                 CheckSemester(value);
                 _semester = value;
-            }
-        }
-
-        public Gender Gender { get; set; }
-
-        private static void CheckName(string name)
-        {
-            if (String.IsNullOrEmpty(name))
-            {
-                throw new ArgumentException("name is null or empty");
             }
         }
 
