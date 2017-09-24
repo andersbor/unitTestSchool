@@ -57,7 +57,7 @@ namespace School
             unchecked
             {
                 return ((Name != null ? Name.GetHashCode() : 0) * 397) ^ _semester;
-            }
+            } 
         }
 
         public override string ToString()
